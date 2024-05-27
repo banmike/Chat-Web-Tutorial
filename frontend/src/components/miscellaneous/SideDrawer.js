@@ -56,6 +56,7 @@ function SideDrawer() {
     history.push("/");
   };
 
+  // Search user
   const handleSearch = async () => {
     if (!search) {
       toast({
@@ -93,6 +94,7 @@ function SideDrawer() {
     }
   };
 
+  // hiển thị đoạn chat khi chọn người dùng
   const accessChat = async (userId) => {
     console.log(userId);
 
@@ -122,6 +124,7 @@ function SideDrawer() {
     }
   };
 
+  // phần header của web: search, title, notification button and profile icon
   return (
     <>
       <Box
@@ -142,7 +145,7 @@ function SideDrawer() {
           </Button>
         </Tooltip>
         <Text fontSize="2xl" fontFamily="Work sans">
-          Talk-A-Tive
+          CHAT-TOGETHER
         </Text>
         <div>
           <Menu>

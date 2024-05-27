@@ -1,6 +1,5 @@
 export const isSameSenderMargin = (messages, m, i, userId) => {
-  // console.log(i === messages.length - 1);
-
+  // nếu cùng 1 người gửi thì chả vể Margin 33
   if (
     i < messages.length - 1 &&
     messages[i + 1].sender._id === m.sender._id &&
@@ -17,6 +16,7 @@ export const isSameSenderMargin = (messages, m, i, userId) => {
   else return "auto";
 };
 
+// cùng người gửi
 export const isSameSender = (messages, m, i, userId) => {
   return (
     i < messages.length - 1 &&
@@ -26,6 +26,7 @@ export const isSameSender = (messages, m, i, userId) => {
   );
 };
 
+// tin nhắn mới nhất
 export const isLastMessage = (messages, i, userId) => {
   return (
     i === messages.length - 1 &&
@@ -34,6 +35,7 @@ export const isLastMessage = (messages, i, userId) => {
   );
 };
 
+//cùng người dùng
 export const isSameUser = (messages, m, i) => {
   return i > 0 && messages[i - 1].sender._id === m.sender._id;
 };

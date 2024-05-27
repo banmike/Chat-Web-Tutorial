@@ -1,6 +1,7 @@
 import { CloseIcon } from "@chakra-ui/icons";
 import { Badge } from "@chakra-ui/layout";
 
+// Hiển thị User
 const UserBadgeItem = ({ user, handleFunction, admin }) => {
   return (
     <Badge

@@ -16,6 +16,8 @@ const ScrollableChat = ({ messages }) => {
     <ScrollableFeed>
       {messages &&
         messages.map((m, i) => (
+          //check có phải người gửi là người đối diện và tin nhắn có phải latestMessage
+          //nếu đúng thì hiển thị avt ở cạnh latestMessage
           <div style={{ display: "flex" }} key={m._id}>
             {(isSameSender(messages, m, i, user._id) ||
               isLastMessage(messages, i, user._id)) && (

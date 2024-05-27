@@ -15,7 +15,7 @@ import animationData from "../animations/typing.json";
 import io from "socket.io-client";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
 import { ChatState } from "../Context/ChatProvider";
-const ENDPOINT = "http://localhost:5000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
+const ENDPOINT = "http://localhost:5000"; // URL backend
 var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
@@ -57,7 +57,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       setMessages(data);
       setLoading(false);
 
-      socket.emit("join chat", selectedChat._id);
+      socket.emit("join chat", selectedChat._id); // gửi 1 tín hiệu join room với selectedChat._id
     } catch (error) {
       toast({
         title: "Error Occured!",
@@ -124,14 +124,16 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   useEffect(() => {
     socket.on("message recieved", (newMessageRecieved) => {
       if (
-        !selectedChatCompare || // if chat is not selected or doesn't match current chat
+        !selectedChatCompare || // nếu chat ko được chọn hoặc ko match
         selectedChatCompare._id !== newMessageRecieved.chat._id
       ) {
+        // chỉ gửi thông báo
         if (!notification.includes(newMessageRecieved)) {
           setNotification([newMessageRecieved, ...notification]);
           setFetchAgain(!fetchAgain);
         }
       } else {
+        // gửi tin nhắn mới
         setMessages([...messages, newMessageRecieved]);
       }
     });
@@ -140,18 +142,22 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const typingHandler = (e) => {
     setNewMessage(e.target.value);
 
-    if (!socketConnected) return;
+    if (!socketConnected) return; // check xem socket đã connect chưa
 
     if (!typing) {
+      // check xem có đang typing ko
       setTyping(true);
       socket.emit("typing", selectedChat._id);
     }
+
+    // setup time stop typing
     let lastTypingTime = new Date().getTime();
     var timerLength = 3000;
     setTimeout(() => {
       var timeNow = new Date().getTime();
       var timeDiff = timeNow - lastTypingTime;
       if (timeDiff >= timerLength && typing) {
+        // dùng hiển thị typing sau 3s hoặc sau khi gửi tin nhắn
         socket.emit("stop typing", selectedChat._id);
         setTyping(false);
       }

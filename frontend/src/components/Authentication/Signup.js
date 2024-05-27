@@ -68,9 +68,9 @@ const Signup = () => {
         isClosable: true,
         position: "bottom",
       });
-      localStorage.setItem("userInfo", JSON.stringify(data));
+      localStorage.setItem("userInfo", JSON.stringify(data)); //nếu registration thành công thì lưu người dùng vào database
       setPicLoading(false);
-      history.push("/chats");
+      history.push("/chats"); //chuyển người dùng đến giao diện Chat
     } catch (error) {
       toast({
         title: "Error Occured!",
@@ -85,7 +85,7 @@ const Signup = () => {
   };
 
   const postDetails = (pics) => {
-    setPicLoading(true);
+    setPicLoading(true); // báo cho ứng dụng biết rằng yêu cầu đang được Loading
     if (pics === undefined) {
       toast({
         title: "Please Select an Image!",
@@ -97,12 +97,13 @@ const Signup = () => {
       return;
     }
     console.log(pics);
+    // chỉ chấp nhận 2 định dạng ảnh 'jpeg' và 'png'
     if (pics.type === "image/jpeg" || pics.type === "image/png") {
       const data = new FormData();
       data.append("file", pics);
       data.append("upload_preset", "chat-app");
-      data.append("cloud_name", "piyushproj");
-      fetch("https://api.cloudinary.com/v1_1/piyushproj/image/upload", {
+      data.append("cloud_name", "khanhnguyen0366");
+      fetch("https://api.cloudinary.com/v1_1/khanhnguyen0366/image/upload", {
         method: "post",
         body: data,
       })
@@ -114,7 +115,7 @@ const Signup = () => {
         })
         .catch((err) => {
           console.log(err);
-          setPicLoading(false);
+          setPicLoading(false); // yêu cầu đã được thực hiện xong nên bỏ loading
         });
     } else {
       toast({
@@ -182,7 +183,7 @@ const Signup = () => {
           type="file"
           p={1.5}
           accept="image/*"
-          onChange={(e) => postDetails(e.target.files[0])}
+          onChange={(e) => postDetails(e.target.files[0])} // nếu up nhiều ảnh thì lấy ảnh đầu tiên
         />
       </FormControl>
       <Button

@@ -6,9 +6,9 @@ import SideDrawer from "../components/miscellaneous/SideDrawer";
 import { ChatState } from "../Context/ChatProvider";
 
 const Chatpage = () => {
-  const [fetchAgain, setFetchAgain] = useState(false);
+  const [fetchAgain, setFetchAgain] = useState(false); // mỗi khi fetch chat thay đổi thì sẽ fetch lại chat
   const { user } = ChatState();
-
+  // design chat page và khung tìm kiếm user
   return (
     <div style={{ width: "100%" }}>
       {user && <SideDrawer />}

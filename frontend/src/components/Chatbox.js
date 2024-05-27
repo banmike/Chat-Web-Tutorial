@@ -3,7 +3,9 @@ import "./styles.css";
 import SingleChat from "./SingleChat";
 import { ChatState } from "../Context/ChatProvider";
 
+// tạo box chat
 const Chatbox = ({ fetchAgain, setFetchAgain }) => {
+  // fetch lại chat mỗi khi thay đổi
   const { selectedChat } = ChatState();
 
   return (

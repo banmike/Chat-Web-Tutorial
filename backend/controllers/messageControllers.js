@@ -29,6 +29,7 @@ const sendMessage = asyncHandler(async (req, res) => {
     return res.sendStatus(400);
   }
 
+  // tạo 1 message mới
   var newMessage = {
     sender: req.user._id,
     content: content,
@@ -36,7 +37,7 @@ const sendMessage = asyncHandler(async (req, res) => {
   };
 
   try {
-    var message = await Message.create(newMessage);
+    var message = await Message.create(newMessage); // tạo và lưu vào db
 
     message = await message.populate("sender", "name pic").execPopulate();
     message = await message.populate("chat").execPopulate();
@@ -45,7 +46,7 @@ const sendMessage = asyncHandler(async (req, res) => {
       select: "name pic email",
     });
 
-    await Chat.findByIdAndUpdate(req.body.chatId, { latestMessage: message });
+    await Chat.findByIdAndUpdate(req.body.chatId, { latestMessage: message }); // update latestMessage khi có nextMessage
 
     res.json(message);
   } catch (error) {

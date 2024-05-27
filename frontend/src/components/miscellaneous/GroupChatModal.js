@@ -30,6 +30,7 @@ const GroupChatModal = ({ children }) => {
 
   const { user, chats, setChats } = ChatState();
 
+  // Thêm user vào GroupChat
   const handleGroup = (userToAdd) => {
     if (selectedUsers.includes(userToAdd)) {
       toast({
@@ -44,7 +45,7 @@ const GroupChatModal = ({ children }) => {
 
     setSelectedUsers([...selectedUsers, userToAdd]);
   };
-
+  // Search user
   const handleSearch = async (query) => {
     setSearch(query);
     if (!query) {
@@ -73,11 +74,12 @@ const GroupChatModal = ({ children }) => {
       });
     }
   };
-
+  // Xóa user
   const handleDelete = (delUser) => {
     setSelectedUsers(selectedUsers.filter((sel) => sel._id !== delUser._id));
   };
 
+  // Submit để tạo New Group Chat
   const handleSubmit = async () => {
     if (!groupChatName || !selectedUsers) {
       toast({
@@ -128,7 +130,7 @@ const GroupChatModal = ({ children }) => {
   return (
     <>
       <span onClick={onOpen}>{children}</span>
-
+      {/* Group Chat Buttons */}
       <Modal onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
         <ModalContent>
@@ -151,7 +153,7 @@ const GroupChatModal = ({ children }) => {
             </FormControl>
             <FormControl>
               <Input
-                placeholder="Add Users eg: John, Piyush, Jane"
+                placeholder="Add Users eg: Khanh, Nam and Tuan"
                 mb={1}
                 onChange={(e) => handleSearch(e.target.value)}
               />

@@ -33,6 +33,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
 
   const { selectedChat, setSelectedChat, user } = ChatState();
 
+  // Search chat
   const handleSearch = async (query) => {
     setSearch(query);
     if (!query) {
@@ -63,6 +64,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
     }
   };
 
+  // Rename Group Name
   const handleRename = async () => {
     if (!groupChatName) return;
 
@@ -74,6 +76,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
         },
       };
       const { data } = await axios.put(
+        // put request to change group name
         `/api/chat/rename`,
         {
           chatId: selectedChat._id,
@@ -84,8 +87,8 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
 
       console.log(data._id);
       // setSelectedChat("");
-      setSelectedChat(data);
-      setFetchAgain(!fetchAgain);
+      setSelectedChat(data); // update lại đoạn chat với tên mới
+      setFetchAgain(!fetchAgain); // fetch lại chat sau khi đổi tên
       setRenameLoading(false);
     } catch (error) {
       toast({
@@ -101,6 +104,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
     setGroupChatName("");
   };
 
+  // Add User to group chat
   const handleAddUser = async (user1) => {
     if (selectedChat.users.find((u) => u._id === user1._id)) {
       toast({
@@ -114,6 +118,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
     }
 
     if (selectedChat.groupAdmin._id !== user._id) {
+      // Check xem người add có phải admin không
       toast({
         title: "Only admins can add someone!",
         status: "error",
@@ -157,6 +162,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
     setGroupChatName("");
   };
 
+  // Remove User from group chat
   const handleRemove = async (user1) => {
     if (selectedChat.groupAdmin._id !== user._id && user1._id !== user._id) {
       toast({
